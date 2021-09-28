@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+    depends_on:
+      - 'db'
+    environment:
+      DB_SOURCE: root:example@tcp(db:3306)/gomock
+    ports:
+      - 8080:8080
+    entrypoint: ['/app/wait-for.sh', 'db:3306', '--timeout=60', '--', '/app/start.sh']
+    command: ['/app/main']
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: gomock
