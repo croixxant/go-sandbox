@@ -1,4 +1,4 @@
-name: ci-sqlc
+name: sqlc-ci
 
 on:
   push:
