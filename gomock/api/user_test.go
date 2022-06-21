@@ -17,9 +17,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/croixxant/golang-examples/gomock/api"
-	"github.com/croixxant/golang-examples/gomock/db"
-	mock_db "github.com/croixxant/golang-examples/gomock/db/mock"
+	"github.com/croixxant/go-sandbox/gomock/api"
+	"github.com/croixxant/go-sandbox/gomock/db"
+	mock_db "github.com/croixxant/go-sandbox/gomock/db/mock"
 )
 
 func randomUser() (db.User, string) {

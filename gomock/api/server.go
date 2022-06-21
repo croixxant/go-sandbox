@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/croixxant/golang-examples/gomock/db"
+	"github.com/croixxant/go-sandbox/gomock/db"
 )
 
 type Server struct {

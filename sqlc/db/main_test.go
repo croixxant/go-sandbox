@@ -8,7 +8,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/croixxant/golang-examples/sqlc/db"
+	"github.com/croixxant/go-sandbox/sqlc/db"
 )
 
 const (

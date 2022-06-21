@@ -9,7 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/croixxant/golang-examples/sqlc/db"
+	"github.com/croixxant/go-sandbox/sqlc/db"
 )
 
 func run() error {

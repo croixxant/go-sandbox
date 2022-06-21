@@ -16,16 +16,18 @@ sqlc:
 	sqlc generate
 
 mock:
-	mockgen -destination db/mock/store.go github.com/croixxant/golang-examples/gomock/db Store
+	mockgen -destination db/mock/store.go github.com/croixxant/go-sandbox/gomock/db Store
 
 db/run:
 	docker run \
 		--name gomock-mysql \
 		-e MYSQL_ROOT_PASSWORD=example \
 		-e MYSQL_DATABASE=gomock \
+		-e MYSQL_ROOT_HOST=% \
 		-p 3306:3306 \
 		--detach --rm\
-		mysql:8.0
+		mysql/mysql-server:latest \
+		--character-set-server=utf8mb4
 
 db/migrate:
 	migrate -path ./db/migrations/ -database 'mysql://root:example@tcp(127.0.0.1:3306)/gomock' -verbose up

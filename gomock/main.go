@@ -7,8 +7,8 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/croixxant/golang-examples/gomock/api"
-	"github.com/croixxant/golang-examples/gomock/db"
+	"github.com/croixxant/go-sandbox/gomock/api"
+	"github.com/croixxant/go-sandbox/gomock/db"
 )
 
 var (

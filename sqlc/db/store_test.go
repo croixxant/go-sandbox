@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/croixxant/golang-examples/sqlc/db"
+	"github.com/croixxant/go-sandbox/sqlc/db"
 )
 
 func TestStore_LikeTx(t *testing.T) {

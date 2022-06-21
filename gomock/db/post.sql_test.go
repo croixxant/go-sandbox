@@ -11,7 +11,7 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/croixxant/golang-examples/gomock/db"
+	"github.com/croixxant/go-sandbox/gomock/db"
 )
 
 func createRandomPost(t *testing.T, userID int64) sql.Result {

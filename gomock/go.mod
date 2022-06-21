@@ -1,4 +1,4 @@
-module github.com/croixxant/golang-examples/gomock
+module github.com/croixxant/go-sandbox/gomock
 
 go 1.17
 

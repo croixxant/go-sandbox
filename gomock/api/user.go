@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/croixxant/golang-examples/gomock/db"
+	"github.com/croixxant/go-sandbox/gomock/db"
 )
 
 type createUserRequest struct {

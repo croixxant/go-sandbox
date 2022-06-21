@@ -1,4 +1,4 @@
-module github.com/croixxant/golang-examples/sqlc
+module github.com/croixxant/go-sandbox/sqlc
 
 go 1.17
 

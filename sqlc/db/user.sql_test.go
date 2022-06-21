@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/croixxant/golang-examples/sqlc/db"
+	"github.com/croixxant/go-sandbox/sqlc/db"
 )
 
 func createRandomUser(t *testing.T) sql.Result {
