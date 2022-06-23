@@ -1,13 +1,14 @@
-.PHONY: build clean test sqlc db/run db/migrate db/kill  
+COVERAGE_OUT=coverage.out
+COVERAGE_HTML=coverage.html
 
 build:
 	go build
 
-clean:
-	-rm sqlc
-
 test:
-	go test -v -cover ./...
+	go test -v -cover ./... -coverprofile=$(COVERAGE_OUT)
+
+cover:
+	go tool cover -html=$(COVERAGE_OUT) -o $(COVERAGE_HTML)
 
 sqlc:
 	sqlc generate
@@ -29,3 +30,4 @@ db/migrate:
 db/kill:
 	docker kill sqlc-mysql
 
+.PHONY: build test cover sqlc db/run db/migrate db/kill

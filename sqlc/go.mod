@@ -6,7 +6,6 @@ require (
 	github.com/brianvoe/gofakeit/v6 v6.16.0
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/stretchr/testify v1.7.4
-	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
 )
 
 require (

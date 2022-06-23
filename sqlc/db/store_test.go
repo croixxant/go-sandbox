@@ -1,35 +1,38 @@
-package db_test
+package db
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
-	"github.com/croixxant/go-sandbox/sqlc/db"
+	"github.com/stretchr/testify/require"
 )
 
-func TestStore_LikeTx(t *testing.T) {
-	store := db.NewStore(testDB)
+func TestTransferTxDeadlock(t *testing.T) {
+	store := NewStore(testDB)
 
-	createUserResult := createRandomUser(t)
-	userID, _ := createUserResult.LastInsertId()
-	createPostResult := createRandomPost(t, userID)
-	postID, _ := createPostResult.LastInsertId()
-	createUser2Result := createRandomUser(t)
-	likeUserID, _ := createUser2Result.LastInsertId()
+	account1 := createRandomAccount(t)
+	account2 := createRandomAccount(t)
+	fmt.Println(">> before:", account1.Balance, account2.Balance)
 
 	n := 10
-	likesCount := 5
-
+	amount := int64(10)
 	errs := make(chan error)
 
 	for i := 0; i < n; i++ {
+		fromAccountID := account1.ID
+		toAccountID := account2.ID
+
+		if i%2 == 1 {
+			fromAccountID = account2.ID
+			toAccountID = account1.ID
+		}
+
 		go func() {
-			err := store.LikeTx(context.Background(), db.LikeTxParams{
-				UserID:     likeUserID,
-				PostID:     postID,
-				LikesCount: int32(likesCount),
+			_, err := store.TransferTx(context.Background(), TransferTxParams{
+				FromAccountID: fromAccountID,
+				ToAccountID:   toAccountID,
+				Amount:        amount,
 			})
 
 			errs <- err
@@ -38,11 +41,17 @@ func TestStore_LikeTx(t *testing.T) {
 
 	for i := 0; i < n; i++ {
 		err := <-errs
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	}
 
-	user, _ := testQueries.GetUser(context.Background(), likeUserID)
-	assert.Equal(t, int32(likesCount*n), user.LikesCount)
-	post, _ := testQueries.GetPost(context.Background(), postID)
-	assert.Equal(t, int32(likesCount*n), post.LikesCount)
+	// check the final updated balance
+	updatedAccount1, err := store.GetAccount(context.Background(), account1.ID)
+	require.NoError(t, err)
+
+	updatedAccount2, err := store.GetAccount(context.Background(), account2.ID)
+	require.NoError(t, err)
+
+	fmt.Println(">> after:", updatedAccount1.Balance, updatedAccount2.Balance)
+	require.Equal(t, account1.Balance, updatedAccount1.Balance)
+	require.Equal(t, account2.Balance, updatedAccount2.Balance)
 }
