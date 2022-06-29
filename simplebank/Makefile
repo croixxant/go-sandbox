@@ -19,6 +19,15 @@ server:
 mock:
 	mockgen -destination db/mock/store.go github.com/croixxant/go-sandbox/simplebank/db Store
 
+proto:
+	rm -f proto/*.pb.go \
+	rm -f doc/swagger/*.swagger.json
+	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
+    	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+		--grpc-gateway_out=pb --grpc-gateway_opt paths=source_relative \
+		--openapiv2_out=./doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=simplebank \
+    	proto/*.proto
+
 # MYSQL_ROOT_HOST: allow access from local machine
 # --sql-mode: ignore STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO
 db/run:
@@ -46,4 +55,5 @@ db/kill:
 network:
 	docker network create simplebank-network
 
-.PHONY: build test cover sqlc server mock db/run db/migrateup db/migratedown db/kill docker/network
+
+.PHONY: build test cover sqlc server mock proto db/run db/migrateup db/migratedown db/kill docker/network
