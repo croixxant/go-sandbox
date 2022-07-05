@@ -1,0 +1,10 @@
+{
+    "gopls": {
+        "formatting.local": "github.com/croixxant/go-sandbox",
+    },
+    "protoc": {
+        "options": [
+            "--proto_path=${workspaceRoot}/config/proto",
+        ]
+    }
+}

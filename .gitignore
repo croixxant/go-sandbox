@@ -1,3 +1,10 @@
-.vscode
+# binaries
+bin
+
+# cover files
 coverage.out
 coverage.html
+
+# vscode settings
+.vscode/*
+!.vscode/settings.json
